@@ -7,10 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,12 +23,16 @@ public class DeptController {
     // private static final Logger logger = LoggerFactory.getLogger(DeptController.class);
 
     // 限定请求方式 GET
-     // @RequestMapping(value = "/depts",method = RequestMethod.GET)
+    // @RequestMapping(value = "/depts",method = RequestMethod.GET)
 
     // Controller 层调用 service 层，需要 service 层的 IOC 注入
     @Autowired
     private DeptService deptService;
 
+    /**
+     * 查询部门列表
+     * @return
+     */
     @GetMapping("/depts")
     public Result list() {
         log.info("查询全部部门数据。");
@@ -40,4 +41,32 @@ public class DeptController {
 
         return Result.success(deptList);
     }
+
+    /**
+     * 删除部门，根据 id
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/depts/{id}")
+    public Result delete(@PathVariable Integer id) {
+        log.info("根据id删除部门：{}", id);
+        // 调用 service 删除部门
+        deptService.delete(id);
+
+        return Result.success();
+    }
+
+    /**
+     * 增加部门
+     * @param dept
+     * @return
+     */
+    @PostMapping("/depts")
+    // 增加部门，前端传递的是 JSON 格式数据，通过 @RequestBody 接收 JSON 数据
+    public Result add(@RequestBody Dept dept) {
+        log.info("新增部门：{}", dept);
+        deptService.add(dept);
+        return Result.success();
+    }
+
 }
