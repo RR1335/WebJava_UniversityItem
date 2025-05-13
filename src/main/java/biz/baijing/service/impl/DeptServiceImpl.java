@@ -19,8 +19,6 @@ public class DeptServiceImpl implements DeptService {
     // Service 层调用 DAO层 需要 Mapper 的 IOC 注入
     @Autowired
     private DeptMapper deptMapper;
-    @Autowired
-    private DeptService deptService;
 
     /**
      * 查询部门列表
@@ -41,6 +39,7 @@ public class DeptServiceImpl implements DeptService {
         deptMapper.deleteById(id);
     }
 
+
     /**
      * 新增部门
      */
@@ -53,4 +52,5 @@ public class DeptServiceImpl implements DeptService {
         deptMapper.insert(dept);
 
     }
+
 }

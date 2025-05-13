@@ -4,8 +4,6 @@ import biz.baijing.pojo.Dept;
 import biz.baijing.pojo.Result;
 import biz.baijing.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +26,7 @@ public class DeptController {
     // Controller 层调用 service 层，需要 service 层的 IOC 注入
     @Autowired
     private DeptService deptService;
+
 
     /**
      * 查询部门列表
@@ -61,12 +60,13 @@ public class DeptController {
      * @param dept
      * @return
      */
-    @PostMapping("/depts")
     // 增加部门，前端传递的是 JSON 格式数据，通过 @RequestBody 接收 JSON 数据
+    @PostMapping("/depts")
     public Result add(@RequestBody Dept dept) {
         log.info("新增部门：{}", dept);
         deptService.add(dept);
         return Result.success();
     }
+
 
 }
