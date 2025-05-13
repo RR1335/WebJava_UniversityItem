@@ -4,6 +4,8 @@ import biz.baijing.mapper.EmpMapper;
 import biz.baijing.pojo.Emp;
 import biz.baijing.pojo.PageBean;
 import biz.baijing.service.EmpService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +21,13 @@ public class EmpServiceImpl implements EmpService {
     @Autowired
     private EmpMapper empMapper;
 
-    /**
-     * 分页查询
-     * @param page
-     * @param pageSize
-     * @return
-     */
-    @Override
+//    /**
+//     * 分页查询
+//     * @param page
+//     * @param pageSize
+//     * @return
+//     */
+/*    @Override
     public PageBean page(Integer page, Integer pageSize) {
         // 获取总记录数
         Long count = empMapper.count();
@@ -35,5 +37,26 @@ public class EmpServiceImpl implements EmpService {
         // 封装结果到 PageBean
         PageBean pageBean = new PageBean(count, list);
         return pageBean;
+    }*/
+
+    /**
+     * 通过 pagehelper 重写 page 接口
+     * @param page
+     * @param PageSize
+     * @return
+     */
+    @Override
+    public PageBean page(Integer page, Integer PageSize){
+        // 获取分页参数
+        PageHelper.startPage(page,PageSize);
+
+        List<Emp> empList = empMapper.list();
+        // 强转 pagehelper 的 Page类
+        Page<Emp> pb = (Page<Emp>) empList;
+
+        PageBean pageBean = new PageBean(pb.getTotal(),pb.getResult());
+
+        return pageBean;
+
     }
 }

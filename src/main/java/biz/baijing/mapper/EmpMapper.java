@@ -28,4 +28,13 @@ public interface EmpMapper {
      */
     @Select("select * from emp limit #{start},#{pageSize}")
     public List<Emp> page(Integer start, Integer pageSize);
+
+    /**
+     * 通过 pagehelper 进行员工信息查询
+     */
+    @Select("select * from emp")
+    public List<Emp> list();
+
+
+
 }
