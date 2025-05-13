@@ -30,4 +30,7 @@ public interface DeptService {
      */
     void add(Dept dept);
 
+    List<Dept> listById(Integer id);
+
+    void updateDeptName(Dept dept);
 }
