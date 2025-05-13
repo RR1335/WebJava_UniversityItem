@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /*
@@ -20,6 +21,26 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpMapper empMapper;
+
+
+    /**
+     * 员工信息查询，含查询条件
+     * @param page
+     * @param pageSize
+     * @param name
+     * @param gender
+     * @param begin
+     * @param end
+     * @return
+     */
+    @Override
+    public PageBean page(Integer page, Integer pageSize, String name, Short gender, LocalDate begin, LocalDate end) {
+        PageHelper.startPage(page,pageSize);
+        List<Emp> empList = empMapper.list(name,gender,begin,end);
+        Page<Emp> p = (Page<Emp>) empList;
+        PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
+        return pageBean;
+    }
 
 //    /**
 //     * 分页查询
@@ -39,24 +60,27 @@ public class EmpServiceImpl implements EmpService {
         return pageBean;
     }*/
 
-    /**
-     * 通过 pagehelper 重写 page 接口
-     * @param page
-     * @param PageSize
-     * @return
-     */
-    @Override
-    public PageBean page(Integer page, Integer PageSize){
-        // 获取分页参数
-        PageHelper.startPage(page,PageSize);
+//    /**
+//     * 通过 pagehelper 重写 page 接口
+//     * @param page
+//     * @param PageSize
+//     * @return
+//     */
+//    @Override
+//    public PageBean page(Integer page, Integer PageSize){
+//        // 获取分页参数
+//        PageHelper.startPage(page,PageSize);
+//
+//        List<Emp> empList = empMapper.list();
+//        // 强转 pagehelper 的 Page类
+//        Page<Emp> pb = (Page<Emp>) empList;
+//
+//        PageBean pageBean = new PageBean(pb.getTotal(),pb.getResult());
+//
+//        return pageBean;
+//
+//    }
 
-        List<Emp> empList = empMapper.list();
-        // 强转 pagehelper 的 Page类
-        Page<Emp> pb = (Page<Emp>) empList;
 
-        PageBean pageBean = new PageBean(pb.getTotal(),pb.getResult());
 
-        return pageBean;
-
-    }
 }

@@ -6,12 +6,19 @@ package biz.baijing.service;
 
 import biz.baijing.pojo.PageBean;
 
+import java.time.LocalDate;
+
 public interface EmpService {
+
     /**
-     * 分页查询
+     * 查询员工列表，和查询条件
      * @param page
      * @param pageSize
+     * @param name
+     * @param gender
+     * @param begin
+     * @param end
      * @return
      */
-    PageBean page(Integer page, Integer pageSize);
+    PageBean page(Integer page, Integer pageSize, String name, Short gender, LocalDate begin, LocalDate end);
 }
