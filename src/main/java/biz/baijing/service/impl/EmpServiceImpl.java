@@ -64,6 +64,16 @@ public class EmpServiceImpl implements EmpService {
         empMapper.insert(emp);
     }
 
+    /**
+     * 根据id查询员工信息
+     * @param id
+     * @return
+     */
+    @Override
+    public Emp getById(Integer id) {
+        return empMapper.getById(id);
+    }
+
 //    /**
 //     * 分页查询
 //     * @param page
