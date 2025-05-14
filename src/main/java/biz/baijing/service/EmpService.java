@@ -7,6 +7,7 @@ package biz.baijing.service;
 import biz.baijing.pojo.PageBean;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface EmpService {
 
@@ -21,4 +22,10 @@ public interface EmpService {
      * @return
      */
     PageBean page(Integer page, Integer pageSize, String name, Short gender, LocalDate begin, LocalDate end);
+
+    /**
+     * 删除员工信息
+     * @param ids
+     */
+    void delete(List<Integer> ids);
 }

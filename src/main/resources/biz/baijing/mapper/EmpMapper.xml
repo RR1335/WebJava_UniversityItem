@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="biz.baijing.mapper.EmpMapper">
+    <!-- 删除员工信息 ids 为 集合 List ，in (1,2,3) -->
+    <delete id="delete">
+        delete from emp
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 
     <!--  员工信息的条件查询  -->
     <select id="list" resultType="biz.baijing.pojo.Emp">

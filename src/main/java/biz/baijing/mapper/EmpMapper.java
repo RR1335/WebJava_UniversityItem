@@ -37,6 +37,9 @@ public interface EmpMapper {
     public List<Emp> list(String name, Short gender, LocalDate begin, LocalDate end);
 
 
-
-
+    /**
+     * 删除员工信息，支持批量删除操作
+     * @param ids
+     */
+    void delete(List<Integer> ids);
 }
