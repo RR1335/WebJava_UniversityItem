@@ -66,7 +66,7 @@ public class EmpController {
      * @return
      */
     @PostMapping
-    public Result save(Emp emp) {
+    public Result save(@RequestBody Emp emp) {
         log.info("新增员工 {}", emp);
         empService.sava(emp);
         return Result.success();
