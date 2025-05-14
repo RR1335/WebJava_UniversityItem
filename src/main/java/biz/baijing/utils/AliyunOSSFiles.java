@@ -10,6 +10,7 @@ import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import com.aliyuncs.exceptions.ClientException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,9 +24,12 @@ import java.util.UUID;
 @Component
 public class AliyunOSSFiles {
 
-    private String endpoint = "https://oss-cn-beijing.aliyuncs.com";
-    private String bucketName = "javawebdev";
-    private String region = "cn-beijing";
+    @Value("${Aliyun.OSS.endpoint}")
+    private String endpoint;
+    @Value("${Aliyun.OSS.bucketName}")
+    private String bucketName;
+    @Value("${Aliyun.OSS.region}")
+    private String region;
 
     private String url;
     private String objectName;
