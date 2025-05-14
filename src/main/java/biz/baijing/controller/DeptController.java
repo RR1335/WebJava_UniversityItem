@@ -44,12 +44,6 @@ public class DeptController {
         return Result.success(deptList);
     }
 
-    @GetMapping("/{id}")
-    public Result listById(@PathVariable Integer id) {
-        log.info("根据{}查询部门信息。",id);
-        List<Dept> deptlist = deptService.listById(id);
-        return Result.success(deptlist);
-    }
 
     /**
      * 删除部门，根据 id
@@ -82,9 +76,16 @@ public class DeptController {
 
     @PutMapping
     public Result update(@RequestBody Dept dept) {
-        log.info("根据{}和{}修改部门名称", dept.getId(), dept.getName());
-        deptService.updateDeptName(dept);
+        log.info("修改部门名称:{}", dept);
+        deptService.update(dept);
         return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        log.info("部门信息：{}",id);
+        Dept dept = deptService.getById(id);
+        return Result.success(dept);
     }
 
 }
