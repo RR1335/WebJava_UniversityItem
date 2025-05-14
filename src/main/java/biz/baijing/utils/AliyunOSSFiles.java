@@ -28,6 +28,7 @@ public class AliyunOSSFiles {
     private String region = "cn-beijing";
 
     private String url;
+    private String objectName;
 
 
     public String uploadOSSFile(MultipartFile file) throws ClientException, IOException {
@@ -56,14 +57,14 @@ public class AliyunOSSFiles {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             String dtnow = dateFormat.format(LocalDateTime.now());
             // 文件名为 UUID + 当前时间戳 ，分割符为 - ，扩展名为原文件扩展名
-            String objectName = UUID.randomUUID().toString().replace("-","") + '-' + dtnow + ext;
+            objectName = UUID.randomUUID().toString().replace("-","") + '-' + dtnow + ext;
 
             // 创建PutObjectRequest对象。
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, inputStream);
             // 创建PutObject请求。
             PutObjectResult result = ossClient.putObject(putObjectRequest);
 
-            url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + objectName;
+//            url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + objectName;
 
         } catch (OSSException oe) {
             System.out.println("Caught an OSSException, which means your request made it to OSS, "
@@ -81,6 +82,7 @@ public class AliyunOSSFiles {
             if (ossClient != null) {
                 ossClient.shutdown();
             }
+            url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + objectName;
             return url;
         }
 
