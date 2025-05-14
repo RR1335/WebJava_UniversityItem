@@ -1,5 +1,6 @@
 package biz.baijing.controller;
 
+import biz.baijing.pojo.Emp;
 import biz.baijing.pojo.PageBean;
 import biz.baijing.pojo.Result;
 import biz.baijing.service.EmpService;
@@ -59,7 +60,17 @@ public class EmpController {
         return Result.success();
     }
 
-
+    /**
+     * 新增员工
+     * @param emp
+     * @return
+     */
+    @PostMapping
+    public Result save(Emp emp) {
+        log.info("新增员工 {}", emp);
+        empService.sava(emp);
+        return Result.success();
+    }
 
 
 }

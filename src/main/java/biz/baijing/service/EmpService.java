@@ -4,6 +4,7 @@ package biz.baijing.service;
 员工管理
  */
 
+import biz.baijing.pojo.Emp;
 import biz.baijing.pojo.PageBean;
 
 import java.time.LocalDate;
@@ -28,4 +29,10 @@ public interface EmpService {
      * @param ids
      */
     void delete(List<Integer> ids);
+
+    /**
+     * 新增员工
+     * @param emp
+     */
+    void sava(Emp emp);
 }

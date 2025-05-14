@@ -51,6 +51,15 @@ public class EmpServiceImpl implements EmpService {
         empMapper.delete(ids);
     }
 
+    /**
+     * 新增员工
+     * @param emp
+     */
+    @Override
+    public void sava(Emp emp) {
+        
+    }
+
 //    /**
 //     * 分页查询
 //     * @param page
