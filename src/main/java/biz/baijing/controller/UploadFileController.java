@@ -1,12 +1,17 @@
 package biz.baijing.controller;
 
 import biz.baijing.pojo.Result;
+import biz.baijing.utils.AliyunOSSFiles;
+import com.aliyuncs.exceptions.ClientException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -15,9 +20,18 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
+@RequestMapping("/upload")
 public class UploadFileController {
 
-    @PostMapping("/upload")
+//    /**
+//     * 本地存储文件方式
+//     * @param username
+//     * @param age
+//     * @param image
+//     * @return
+//     * @throws Exception
+//     */
+/*    @PostMapping("/upload")
     public Result upload(String username,Integer age,MultipartFile image) throws Exception {
         log.info("上传文件 {},{},{}", username, age, image);
 
@@ -36,5 +50,23 @@ public class UploadFileController {
         image.transferTo(new File("/Users/ann/JavaDev/uploadfile/university/" + newofn));
 
         return Result.success();
+    }*/
+
+    @Autowired
+    private AliyunOSSFiles aliyunOSSFiles;
+
+    /**
+     * 阿里云 OSS 存储文件的方式
+     */
+    @PostMapping
+    public Result upload(MultipartFile image) throws ClientException, IOException {
+        log.info("Upload File {}", image.getOriginalFilename());
+
+        String url = aliyunOSSFiles.uploadOSSFile(image);
+
+        log.info("文件上传完成 {}", url);
+
+        return Result.success(url);
     }
+
 }
