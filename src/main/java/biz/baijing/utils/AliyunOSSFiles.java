@@ -10,6 +10,9 @@ import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import com.aliyuncs.exceptions.ClientException;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,21 +24,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+
 @Component
 public class AliyunOSSFiles {
+//
+//    @Value("${Aliyun.OSS.endpoint}")
+//    private String endpoint;
+//    @Value("${Aliyun.OSS.bucketName}")
+//    private String bucketName;
+//    @Value("${Aliyun.OSS.region}")
+//    private String region;
 
-    @Value("${Aliyun.OSS.endpoint}")
-    private String endpoint;
-    @Value("${Aliyun.OSS.bucketName}")
-    private String bucketName;
-    @Value("${Aliyun.OSS.region}")
-    private String region;
+    @Autowired
+    private AliyunOSSProperties aliyunOSSProperties;
 
     private String url;
     private String objectName;
 
 
     public String uploadOSSFile(MultipartFile file) throws ClientException, IOException {
+
+        String endpoint = aliyunOSSProperties.getEndpoint();
+        String bucketName = aliyunOSSProperties.getBucketName();
+        String region = aliyunOSSProperties.getRegion();
 
         // 从环境变量中获取访问凭证。运行本代码示例之前，请确保已设置环境变量OSS_ACCESS_KEY_ID和OSS_ACCESS_KEY_SECRET
         // 环境变量的处理，参考阿里云文档
