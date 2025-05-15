@@ -1,0 +1,42 @@
+package biz.baijing.utils;
+
+import biz.baijing.pojo.Emp;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import javax.xml.bind.DatatypeConverter;
+import java.util.Date;
+import java.util.Map;
+
+public class JwtsToken {
+
+    private static String key = "baijingbiz";
+    private static Long ttlMillis = (long)(1000 * 60 * 60 * 24);
+
+    public static String createJwt(Map<String, Object> claims) {
+
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
+
+
+        String jwts = Jwts.builder()
+                        .claims(claims)
+                        .signWith(signatureAlgorithm, key)
+                        .expiration(new Date(System.currentTimeMillis() + ttlMillis))
+                         .compact();
+
+        return jwts;
+    }
+
+    public static Claims parseJwt(String jwt) {
+        Claims claimsJws = Jwts.parser()
+                                .setSigningKey(key)
+                                .build()
+                                .parseSignedClaims(jwt)
+                                .getBody();
+
+        return claimsJws;
+    }
+
+}
