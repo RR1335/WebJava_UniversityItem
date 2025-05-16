@@ -3,6 +3,7 @@ package biz.baijing.service.impl;
 import biz.baijing.mapper.DeptMapper;
 import biz.baijing.pojo.Dept;
 import biz.baijing.service.DeptService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 /*
 部门接口的实现类
  */
-
+@Slf4j
 @Service
 public class DeptServiceImpl implements DeptService {
 
@@ -48,6 +49,13 @@ public class DeptServiceImpl implements DeptService {
         // 前端传递的部门信息 — 部门名称 ；需要补全信息
         dept.setCreateTime(LocalDateTime.now());
         dept.setUpdateTime(LocalDateTime.now());
+
+        // 判断 新增部门的名称是否存在，存在则结束 —— 返回一个错误信息（部门已存在请重新输入）
+//        Integer c = deptMapper.getByName(dept);
+//        if( c > 0 ){
+//            log.info("查询结果 {}",c);
+//            System.out.println("已存在，请重新输入：");
+//        }
 
         deptMapper.insert(dept);
 

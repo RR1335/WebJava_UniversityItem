@@ -40,4 +40,7 @@ public interface DeptMapper {
 
     @Select("select * from dept where id=#{id}")
     Dept getById(Integer id);
+
+    @Select("select count(*) from dept where name = #{name}")
+    Integer getByName(Dept dept);
 }
