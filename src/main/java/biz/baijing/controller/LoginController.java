@@ -4,11 +4,15 @@ package biz.baijing.controller;
 import biz.baijing.pojo.Emp;
 import biz.baijing.pojo.Result;
 import biz.baijing.service.EmpService;
+import biz.baijing.utils.JwtsToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -25,7 +29,16 @@ public class LoginController {
         if (e == null) {
             return Result.error("用户名或密码错误。");
         }
-        return Result.success(e);
+
+        Map<String , Object> claims = new HashMap<>();
+        claims.put("id",e.getId());
+        claims.put("username",e.getUsername());
+        claims.put("name",e.getName());
+
+        String jwt = JwtsToken.createJwt(claims);
+
+
+        return Result.success(jwt);
         // return e != null?Result.success(e):Result.error("用户名密码错误.")
     }
 

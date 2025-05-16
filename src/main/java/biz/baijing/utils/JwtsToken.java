@@ -11,7 +11,9 @@ import java.util.Map;
 
 public class JwtsToken {
 
-    private static String key = "baijingbiz";
+    private static String key = "baijingbizbaijingbizbaijingbizbaijingbizbaijingbizbaij" +
+            "bai*&*(&*(&5430w38950825348t40948t43to9erfrejoif3409tu09jhlkjlba" +
+            "ijingbizbaijingbizingbizbaijingbizbaijingbizbaijingbizbaijingbizbaijingbiz";
     private static Long ttlMillis = (long)(1000 * 60 * 60 * 24);
 
     public static String createJwt(Map<String, Object> claims) {

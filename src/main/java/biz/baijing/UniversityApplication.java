@@ -2,7 +2,9 @@ package biz.baijing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
+@ServletComponentScan      // Spring项目使用 Java 类的注解
 @SpringBootApplication
 public class UniversityApplication {
 
