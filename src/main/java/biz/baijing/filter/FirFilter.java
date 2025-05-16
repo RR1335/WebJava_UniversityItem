@@ -7,7 +7,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*")
 public class FirFilter implements Filter {
     @Override // 执行一次
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         System.out.println("FirFilter init , Done .");
     }
 
