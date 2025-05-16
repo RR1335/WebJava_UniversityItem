@@ -1,11 +1,13 @@
 package biz.baijing.service.impl;
 
 import biz.baijing.mapper.DeptMapper;
+import biz.baijing.mapper.EmpMapper;
 import biz.baijing.pojo.Dept;
 import biz.baijing.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +23,9 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
 
+    @Autowired
+    private EmpMapper empMapper;
+
     /**
      * 查询部门列表
      * @return
@@ -34,10 +39,20 @@ public class DeptServiceImpl implements DeptService {
      * 删除部门
      * @param id
      */
+    @Transactional      // Spring 事物管理
     @Override
     public void delete(Integer id) {
+        // 判断部门下是否有员工
+//        Integer c = empMapper.getByDeptId(id);
+//        if (c > 0) {
+//            System.out.println("部门下有员工" + c + "，确定是否删除");
+//        }
+
         // 判断 id 是否存在，存在继续；不存在，输出不存在，报错结束
         deptMapper.deleteById(id);
+
+        // 根据部门ID删除该部门的员工信息
+        empMapper.deleteByDeptId(id);
     }
 
 

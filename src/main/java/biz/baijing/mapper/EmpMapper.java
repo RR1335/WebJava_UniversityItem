@@ -1,6 +1,7 @@
 package biz.baijing.mapper;
 
 import biz.baijing.pojo.Emp;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -73,4 +74,16 @@ public interface EmpMapper {
      */
     @Select("select * from emp where username = #{username} and password = #{password}")
     Emp getByUsernameAndPassword(Emp emp);
+
+
+    /**
+     * 根据部门ID删除员工信息
+     * @param deptId
+     */
+    @Delete("delete from emp where dept_id = #{deptId}")
+    void deleteByDeptId(Integer deptId);
+
+
+    @Select("select count(*) from emp where dept_id = #{deptId}")
+    Integer getByDeptId(Integer id);
 }
