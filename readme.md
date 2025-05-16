@@ -6,7 +6,7 @@
 
 ## 拦截器 Filter
 
-    javax.servlet
+    javax.servlet ,SpringBoot 已经不在使用。
 
 ```java
         <dependency>
@@ -15,6 +15,8 @@
             <version>3.1.0</version>
         </dependency>
 ```
+    
+    SpringBoot3 使用 jakarta.servlet 
 
 ## Log 日志
 
