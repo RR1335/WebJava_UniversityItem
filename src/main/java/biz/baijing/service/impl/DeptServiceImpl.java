@@ -3,7 +3,9 @@ package biz.baijing.service.impl;
 import biz.baijing.mapper.DeptMapper;
 import biz.baijing.mapper.EmpMapper;
 import biz.baijing.pojo.Dept;
+import biz.baijing.pojo.DeptLog;
 import biz.baijing.service.DeptService;
+import biz.baijing.service.DeptLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private EmpMapper empMapper;
 
+    @Autowired
+    private DeptLogService deptLogService;
+
+
     /**
      * 查询部门列表
      * @return
@@ -39,7 +45,9 @@ public class DeptServiceImpl implements DeptService {
      * 删除部门
      * @param id
      */
-    @Transactional      // Spring 事物管理
+    // Spring 事物管理 , 默认只有运行时异常才会回滚
+    // rollbackFor 配置回滚条件
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Integer id) {
         // 判断部门下是否有员工
@@ -48,11 +56,20 @@ public class DeptServiceImpl implements DeptService {
 //            System.out.println("部门下有员工" + c + "，确定是否删除");
 //        }
 
-        // 判断 id 是否存在，存在继续；不存在，输出不存在，报错结束
-        deptMapper.deleteById(id);
+        try {
+            // 判断 id 是否存在，存在继续；不存在，输出不存在，报错结束
+            deptMapper.deleteById(id);
 
-        // 根据部门ID删除该部门的员工信息
-        empMapper.deleteByDeptId(id);
+            // 根据部门ID删除该部门的员工信息
+            empMapper.deleteByDeptId(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {                                    // 事物传播行为
+            DeptLog deptLog = new DeptLog();
+            deptLog.setCreateTime(LocalDateTime.now());
+            deptLog.setDescription("解散部门，删除的部分 " + id );
+            deptLogService.insert(deptLog);
+        }
     }
 
 
