@@ -1,19 +1,20 @@
 package biz.baijing.Config;
 
-import intercepter.LoginIntercepter;
+import interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class ConfigInterceptor implements WebMvcConfigurer {
+public class InterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
-    private LoginIntercepter loginIntercepter;
+    private LoginInterceptor loginInterceptor;
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginIntercepter).addPathPatterns("/**");   // 拦截所有资源 “/**”
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**");   // 拦截所有资源 “/**”
     }
 }

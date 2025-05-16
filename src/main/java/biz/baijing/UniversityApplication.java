@@ -6,8 +6,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 
+//@ServletComponentScan      // Spring项目使用 Java 类的注解
 @SpringBootApplication
-@ServletComponentScan      // Spring项目使用 Java 类的注解
 public class UniversityApplication {
 
     public static void main(String[] args) {
