@@ -1,10 +1,9 @@
-package biz.baijing.aop;
+package biz.baijing.tryaop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 @Order(1)         // AOP 执行次序 ， before 执行数字小优先，after 数字大优先
 @Slf4j

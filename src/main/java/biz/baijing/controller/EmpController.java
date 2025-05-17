@@ -1,5 +1,6 @@
 package biz.baijing.controller;
 
+import biz.baijing.annotation.OpLog;
 import biz.baijing.pojo.Emp;
 import biz.baijing.pojo.PageBean;
 import biz.baijing.pojo.Result;
@@ -53,6 +54,7 @@ public class EmpController {
      * @param ids
      * @return
      */
+    @OpLog
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable List<Integer> ids) {
         log.info("批量删除 ids={}", ids);
@@ -65,6 +67,7 @@ public class EmpController {
      * @param emp
      * @return
      */
+    @OpLog
     @PostMapping
     public Result save(@RequestBody Emp emp) {
         log.info("新增员工 {}", emp);
@@ -89,6 +92,7 @@ public class EmpController {
      * @param emp
      * @return
      */
+    @OpLog
     @PutMapping
     public Result update(@RequestBody Emp emp) {
         log.info("更新员工：{}",emp);

@@ -1,4 +1,4 @@
-package biz.baijing.aop;
+package biz.baijing.tryaop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

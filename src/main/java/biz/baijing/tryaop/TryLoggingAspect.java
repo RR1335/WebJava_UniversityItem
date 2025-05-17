@@ -1,4 +1,4 @@
-package biz.baijing.aop;
+package biz.baijing.tryaop;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class TryLoggingAspect {
 
     // 切入点表达式，引用
-    @Pointcut("@annotation(biz.baijing.aop.TryLogging)")
+    @Pointcut("@annotation(biz.baijing.tryaop.TryLogging)")
     public void poct() {}
 
     @Before("poct()")      // * 任意方法 ， .. 形参任意

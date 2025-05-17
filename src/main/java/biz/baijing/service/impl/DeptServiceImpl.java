@@ -1,6 +1,5 @@
 package biz.baijing.service.impl;
 
-import biz.baijing.aop.TryLogging;
 import biz.baijing.mapper.DeptMapper;
 import biz.baijing.mapper.EmpMapper;
 import biz.baijing.pojo.Dept;

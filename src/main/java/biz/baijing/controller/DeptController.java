@@ -1,5 +1,6 @@
 package biz.baijing.controller;
 
+import biz.baijing.annotation.OpLog;
 import biz.baijing.pojo.Dept;
 import biz.baijing.pojo.Result;
 import biz.baijing.service.DeptService;
@@ -50,7 +51,9 @@ public class DeptController {
      * @param id
      * @return
      */
+
 //    @DeleteMapping("/depts/{id}")
+    @OpLog
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         log.info("根据id删除部门：{}", id);
@@ -67,6 +70,7 @@ public class DeptController {
      */
     // 增加部门，前端传递的是 JSON 格式数据，通过 @RequestBody 接收 JSON 数据
 //    @PostMapping("/depts")
+    @OpLog
     @PostMapping
     public Result add(@RequestBody Dept dept) {
         log.info("新增部门：{}", dept);
@@ -74,6 +78,7 @@ public class DeptController {
         return Result.success();
     }
 
+    @OpLog
     @PutMapping
     public Result update(@RequestBody Dept dept) {
         log.info("修改部门名称:{}", dept);
