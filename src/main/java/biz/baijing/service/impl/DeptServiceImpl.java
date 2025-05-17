@@ -1,5 +1,6 @@
 package biz.baijing.service.impl;
 
+import biz.baijing.aop.TryLogging;
 import biz.baijing.mapper.DeptMapper;
 import biz.baijing.mapper.EmpMapper;
 import biz.baijing.pojo.Dept;
@@ -36,8 +37,10 @@ public class DeptServiceImpl implements DeptService {
      * 查询部门列表
      * @return
      */
+    @TryLogging
     @Override
     public List<Dept> list() {
+
         return deptMapper.list();
     }
 
@@ -76,6 +79,7 @@ public class DeptServiceImpl implements DeptService {
     /**
      * 新增部门
      */
+    @TryLogging
     @Override
     public void add(Dept dept) {
         // 前端传递的部门信息 — 部门名称 ；需要补全信息
