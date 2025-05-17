@@ -37,7 +37,7 @@ public class DeptServiceImpl implements DeptService {
      * 查询部门列表
      * @return
      */
-    @TryLogging
+//    @TryLogging
     @Override
     public List<Dept> list() {
 
@@ -79,7 +79,7 @@ public class DeptServiceImpl implements DeptService {
     /**
      * 新增部门
      */
-    @TryLogging
+//    @TryLogging
     @Override
     public void add(Dept dept) {
         // 前端传递的部门信息 — 部门名称 ；需要补全信息
